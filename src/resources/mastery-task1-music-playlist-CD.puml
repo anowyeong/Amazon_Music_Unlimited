@@ -1,1 +1,140 @@
-PARTICIPANTS: use this file for creating the class diagram in mastery task 01
+
+@startuml
+
+class AddSongToPlaylistActivity {
+ -final log : Logger
+ -final playlistDao : PlaylistDao
+ -final albumTrackDao : AlbumTrackDao
+ +handleRequest(AddSongToPlaylistRequest) : AddSongToPlaylistResult
+}
+
+class CreatePlaylistActivity {
+ -final log : Logger
+ -final playlistDao : PlaylistDao
+ +handleRequest(CreatePlaylistRequest, Context) : CreatePlaylistResult
+}
+
+class GetPlaylistActivity {
+ -final log : Logger
+ -final playlistDao : PlaylistDao
+ +handleRequest(GetPlaylistRequest, Context) : GetPlaylistResult
+}
+
+class GetPlaylistSongsActivity {
+ -final log : Logger
+ -final playlistDao : PlaylistDao
+ +handleRequest(final GetPlaylistSongsRequest, Context) : GetPlaylistSongsResult
+}
+
+class UpdatePlaylistActivity {
+ -final log : Logger
+ -fina playlistDao :  PlaylistDao
+ +handleRequest(UpdatePlaylistRequest, Context) : UpdatePlaylistResult
+}
+
+class AlbumTrack {
+ -@DynamoDBHashKey asin : String
+ -@DynamoDBRangeKey trackNumber : Integer
+ -albumName : String
+ -songTitle : String
+}
+
+class Playlist {
+ -@DynamoDBHashKey id : String
+ -name : String
+ -customerId : String
+ -songCount : Integer
+ -tags : Set<String>
+ -songList : List<AlbumTrack>
+}
+
+class AlbumTrackDao {
+ -final dynamoDbMapper : DynamoDBMapper
+}
+
+class PlaylistDao {
+ -final dynamoDbMapper : DynamoDBMapper
+ +getPlaylist(String) : Playlist
+}
+
+class AlbumTrackNotFoundException {
+ -static final serialVersionUID : long
+}
+
+class InvalidAttributeValueException {
+ -static final serialVersionUID : long
+}
+
+class PlaylistNotFoundException {
+ - static final serialVersionUID : long
+}
+
+Playlist -- AlbumTrack
+AddSongToPlaylistActivity -- AlbumTrackDao
+CreatePlaylistActivity -- PlaylistDao
+AddSongToPlaylistActivity -- PlaylistDao
+GetPlaylistActivity -- PlaylistDao
+GetPlaylistSongsActivity -- PlaylistDao
+UpdatePlaylistActivity -- PlaylistDao
+
+@enduml
+
+class AddSongToPlaylistActivityProvider {
+
+}
+
+class CreatePlaylistActivityProvider {
+
+}
+
+class GetPlaylistActivityProvider {
+
+}
+
+class GetPlaylistSongsActivityProvider {
+
+}
+
+class UpdatePlaylistActivityProvider {
+
+}
+
+class AddSongToPlaylistRequest {
+
+}
+
+class CreatePlaylistRequest {
+
+}
+
+class GetPlaylistRequest {
+
+}
+
+class GetPlaylistResult {
+
+}
+
+class getPlaylistSongsResult {
+
+}
+
+class UpdatePlaylistResult {
+
+}
+
+class PlaylistModel {
+
+}
+
+class SongModel {
+
+}
+
+class SongOrder {
+
+}
+
+class MusicPLaylistServiceUtils {
+
+}
