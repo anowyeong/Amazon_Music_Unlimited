@@ -1,5 +1,6 @@
 package com.amazon.ata.music.playlist.service.activity;
 
+import com.amazon.ata.music.playlist.service.exceptions.InvalidAttributeValueException;
 import com.amazon.ata.music.playlist.service.models.requests.CreatePlaylistRequest;
 import com.amazon.ata.music.playlist.service.models.results.CreatePlaylistResult;
 import com.amazon.ata.music.playlist.service.models.PlaylistModel;
@@ -44,6 +45,13 @@ public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequ
     @Override
     public CreatePlaylistResult handleRequest(final CreatePlaylistRequest createPlaylistRequest, Context context) {
         log.info("Received CreatePlaylistRequest {}", createPlaylistRequest);
+
+        String[] invalidChars = {"\'", "\"", "\\"};
+        for (String let : invalidChars) {
+            if (createPlaylistRequest.getCustomerId().contains(let) || createPlaylistRequest.getName().contains(let)) {
+                throw new InvalidAttributeValueException();
+            }
+        }
 
         return CreatePlaylistResult.builder()
                 .withPlaylist(new PlaylistModel())
