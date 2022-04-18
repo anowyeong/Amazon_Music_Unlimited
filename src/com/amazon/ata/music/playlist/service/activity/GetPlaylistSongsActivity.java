@@ -44,6 +44,8 @@ public class GetPlaylistSongsActivity implements RequestHandler<GetPlaylistSongs
     public GetPlaylistSongsResult handleRequest(final GetPlaylistSongsRequest getPlaylistSongsRequest, Context context) {
         log.info("Received GetPlaylistSongsRequest {}", getPlaylistSongsRequest);
 
+        playlistDao.getPlaylist(getPlaylistSongsRequest.getId());
+
         return GetPlaylistSongsResult.builder()
                 .withSongList(Collections.singletonList(new SongModel()))
                 .build();

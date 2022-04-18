@@ -5,9 +5,7 @@ import java.util.Objects;
 public class GetPlaylistRequest {
     private String id;
 
-    public GetPlaylistRequest() {
-
-    }
+    public GetPlaylistRequest() {}
 
     public GetPlaylistRequest(Builder builder) {
         this.id = builder.id;

@@ -8,13 +8,12 @@ public class CreatePlaylistRequest {
     private String customerId;
     private List<String> tags;
 
+    public CreatePlaylistRequest(){};
+
     public CreatePlaylistRequest(String name, String customerId, List<String> tags) {
         this.name = name;
         this.customerId = customerId;
         this.tags = tags;
-    }
-
-    public CreatePlaylistRequest() {
     }
 
     public CreatePlaylistRequest(Builder builder) {
