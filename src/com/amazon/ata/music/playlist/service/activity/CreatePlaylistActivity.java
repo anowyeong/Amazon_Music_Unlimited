@@ -58,6 +58,7 @@ public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequ
     public CreatePlaylistResult handleRequest(final CreatePlaylistRequest createPlaylistRequest, Context context) {
         log.info("Received CreatePlaylistRequest {}", createPlaylistRequest);
 
+        // TODO : MASTERY TASK 1 : milestone 2
         if (!MusicPlaylistServiceUtils.isValidString(createPlaylistRequest.getName())) {
             throw new InvalidAttributeValueException("[ERROR] Invalid character in name: " + createPlaylistRequest.getName());
         }

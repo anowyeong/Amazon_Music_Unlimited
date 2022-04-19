@@ -61,12 +61,24 @@ class AlbumTrackNotFoundException {
  -static final serialVersionUID : long
 }
 
+class PlaylistNotFoundException {
+ - static final serialVersionUID : long
+}
+
 class InvalidAttributeValueException {
  -static final serialVersionUID : long
 }
 
-class PlaylistNotFoundException {
- - static final serialVersionUID : long
+class InvalidAttributeChangeException {
+
+}
+
+class InvalidAttributeBaseException {
+
+}
+
+class RunTimeException {
+
 }
 
 Playlist -- AlbumTrack
@@ -76,6 +88,10 @@ AddSongToPlaylistActivity -- PlaylistDao
 GetPlaylistActivity -- PlaylistDao
 GetPlaylistSongsActivity -- PlaylistDao
 UpdatePlaylistActivity -- PlaylistDao
+
+RunTimeException <|-- InvalidAttributeBaseException
+InvalidAttributeBaseException <|-- InvalidAttributeChangeException
+InvalidAttributeBaseException <|-- InvalidAttributeValueException
 
 @enduml
 
