@@ -2,6 +2,8 @@ package com.amazon.ata.music.playlist.service.dynamodb;
 
 import com.amazon.ata.music.playlist.service.dynamodb.models.AlbumTrack;
 
+import com.amazon.ata.music.playlist.service.exceptions.AlbumTrackNotFoundException;
+import com.amazon.ata.music.playlist.service.exceptions.InvalidAttributeChangeException;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import javax.inject.Inject;
 
@@ -19,5 +21,20 @@ public class AlbumTrackDao {
     @Inject
     public AlbumTrackDao(DynamoDBMapper dynamoDbMapper) {
         this.dynamoDbMapper = dynamoDbMapper;
+    }
+
+    /**
+     * Receive AlbumTrack from
+     * @param asin : of album.
+     * @param trackNumber : trackNumber to search for
+     * @return AlbumTrack, if invalid asin or trackNumber throw AlbumTrackNotFoundException
+     */
+    public AlbumTrack getAlbumTrack(String asin, int trackNumber ) {
+        AlbumTrack albumTrack = dynamoDbMapper.load(AlbumTrack.class, asin, trackNumber);
+
+        if (albumTrack == null) {
+            throw new AlbumTrackNotFoundException(String.format("[ERROR] Invalid parameters asin: [%s] trackNumber: [%d]", asin, trackNumber));
+        }
+        return albumTrack;
     }
 }

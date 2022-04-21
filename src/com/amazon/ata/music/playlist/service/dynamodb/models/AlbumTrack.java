@@ -21,7 +21,7 @@ public class AlbumTrack {
         this.asin = asin;
     }
 
-    @DynamoDBRangeKey
+    @DynamoDBRangeKey(attributeName = "track_number")
     public Integer getTrackNumber() {
         return trackNumber;
     }
@@ -30,7 +30,7 @@ public class AlbumTrack {
         this.trackNumber = trackNumber;
     }
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "album_name")
     public String getAlbumName() {
         return albumName;
     }
@@ -39,7 +39,7 @@ public class AlbumTrack {
         this.albumName = albumName;
     }
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "song_title")
     public String getSongTitle() {
         return songTitle;
     }
