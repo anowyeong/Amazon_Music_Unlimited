@@ -42,4 +42,22 @@ public class ModelConverter {
                 .build();
     }
 
+    public List<SongModel> toSongModelList(List<AlbumTrack> albumTrackList) {
+
+        List<SongModel> songModelList = new ArrayList<>();
+
+        for (AlbumTrack albumTrack : albumTrackList) {
+
+            SongModel songModel = SongModel.builder()
+                    .withAlbum(albumTrack.getAlbumName())
+                    .withAsin(albumTrack.getAsin())
+                    .withTitle(albumTrack.getSongTitle())
+                    .withTrackNumber(albumTrack.getTrackNumber())
+                    .build();
+
+            songModelList.add(songModel);
+        }
+            return  songModelList;
+    }
+
 }

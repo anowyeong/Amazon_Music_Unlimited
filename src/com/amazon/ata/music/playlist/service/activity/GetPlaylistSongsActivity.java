@@ -1,5 +1,8 @@
 package com.amazon.ata.music.playlist.service.activity;
 
+import com.amazon.ata.music.playlist.service.converters.ModelConverter;
+import com.amazon.ata.music.playlist.service.dynamodb.models.AlbumTrack;
+import com.amazon.ata.music.playlist.service.dynamodb.models.Playlist;
 import com.amazon.ata.music.playlist.service.models.requests.GetPlaylistSongsRequest;
 import com.amazon.ata.music.playlist.service.models.results.GetPlaylistSongsResult;
 import com.amazon.ata.music.playlist.service.models.SongModel;
@@ -10,7 +13,9 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -46,10 +51,13 @@ public class GetPlaylistSongsActivity implements RequestHandler<GetPlaylistSongs
     public GetPlaylistSongsResult handleRequest(final GetPlaylistSongsRequest getPlaylistSongsRequest, Context context) {
         log.info("Received GetPlaylistSongsRequest {}", getPlaylistSongsRequest);
 
-        playlistDao.getPlaylist(getPlaylistSongsRequest.getId());
+        Playlist playlist = playlistDao.getPlaylist(getPlaylistSongsRequest.getId());
+
+        //TODO MASTERY TASK 4: MILESTONE 2
+        List<SongModel> songModelList = new ModelConverter().toSongModelList(playlist.getSongList());
 
         return GetPlaylistSongsResult.builder()
-                .withSongList(Collections.singletonList(new SongModel()))
+                .withSongList(songModelList)
                 .build();
     }
 }

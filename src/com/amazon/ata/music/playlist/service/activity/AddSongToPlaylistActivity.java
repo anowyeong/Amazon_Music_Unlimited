@@ -81,6 +81,8 @@ public class AddSongToPlaylistActivity implements RequestHandler<AddSongToPlayli
             songModelList.add(songModel);
         }
 
+//        System.out.println(songModelList);
+
         return AddSongToPlaylistResult.builder()
                 .withSongList(songModelList)
                 .build();
