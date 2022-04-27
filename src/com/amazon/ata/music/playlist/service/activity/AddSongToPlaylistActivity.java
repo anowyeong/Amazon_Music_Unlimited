@@ -65,11 +65,21 @@ public class AddSongToPlaylistActivity implements RequestHandler<AddSongToPlayli
         AlbumTrack albumTrack = albumTrackDao.getAlbumTrack(addSongToPlaylistRequest.getAsin(), addSongToPlaylistRequest.getTrackNumber());
         Playlist playlist = playlistDao.getPlaylist(addSongToPlaylistRequest.getId());
 
+        // TODO MASTERY TASK 5 M1
+        boolean queueNext = addSongToPlaylistRequest.isQueueNext();
+
+
         // Receive list of album
         List<AlbumTrack> songList = playlist.getSongList();
 
         // Add albumTrack to the list
-        songList.add(albumTrack);
+        // if queueNext is True, add to front
+        if (queueNext) {
+            songList.add(0, albumTrack);
+        } else {
+            // else add to end
+            songList.add(albumTrack);
+        }
 
         // Save to dynamodb
         playlistDao.savePlaylist(playlist);

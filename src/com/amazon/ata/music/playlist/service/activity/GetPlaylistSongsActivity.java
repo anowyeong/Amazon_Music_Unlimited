@@ -3,11 +3,14 @@ package com.amazon.ata.music.playlist.service.activity;
 import com.amazon.ata.music.playlist.service.converters.ModelConverter;
 import com.amazon.ata.music.playlist.service.dynamodb.models.AlbumTrack;
 import com.amazon.ata.music.playlist.service.dynamodb.models.Playlist;
+import com.amazon.ata.music.playlist.service.models.SongOrder;
 import com.amazon.ata.music.playlist.service.models.requests.GetPlaylistSongsRequest;
 import com.amazon.ata.music.playlist.service.models.results.GetPlaylistSongsResult;
 import com.amazon.ata.music.playlist.service.models.SongModel;
 import com.amazon.ata.music.playlist.service.dynamodb.PlaylistDao;
 
+import com.amazonaws.services.dynamodbv2.model.Get;
+import com.amazonaws.services.dynamodbv2.xspec.S;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import org.apache.logging.log4j.LogManager;
@@ -55,6 +58,16 @@ public class GetPlaylistSongsActivity implements RequestHandler<GetPlaylistSongs
 
         //TODO MASTERY TASK 4: MILESTONE 2
         List<SongModel> songModelList = new ModelConverter().toSongModelList(playlist.getSongList());
+
+        //TODO MAASTERY TASK 5 M2
+        // implicitly state if songOrder == SongOrder.DEFAULT
+        SongOrder songOrder = getPlaylistSongsRequest.getOrder();
+
+        if (songOrder.equals(SongOrder.REVERSED)) {
+            Collections.reverse(songModelList);
+        } else if(songOrder.equals(SongOrder.SHUFFLED)){
+            Collections.shuffle(songModelList);
+        }
 
         return GetPlaylistSongsResult.builder()
                 .withSongList(songModelList)
